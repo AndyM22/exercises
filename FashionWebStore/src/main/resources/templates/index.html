@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/stylesheet.css"/>
+</head>
+<body>
+
+<div class="page">
+
+    <h1>Green Fox Fashion Web Store</h1>
+
+    <form th:action="'/shoppingplanner/summary'" method="post">
+
+        <select name="itemName">
+            <option th:each="itemName : ${itemNames}"
+                    th:value="${itemName}"
+                    th:text="${itemName}"></option>
+        </select>
+
+        <label for="size">Size:</label>
+        <select name="itemSize" id="size">
+            <option th:each="size : ${sizes}"
+                    th:value="${size}"
+                    th:text="${size}"></option>
+        </select>
+
+        <input name="quantity" type="text">
+
+        <input type="submit" value="GET TOTAL">
+
+    </form>
+
+    <table>
+        <tr th:if="${items.empty}">
+            <td colspan="5">No items available</td>
+        </tr>
+
+        <tr class="header">
+
+            <td>Item name</td>
+            <td>Manufacturer</td>
+            <td>Category</td>
+            <td>Size</td>
+            <td>Unit Price</td>
+
+        </tr>
+
+        <tr th:block th:each="item:${items}">
+
+            <td th:text="${item.itemName}"></td>
+            <td th:text="${item.manufacturer}"></td>
+            <td th:text="${item.category}"></td>
+            <td th:text="${item.size}"></td>
+            <td th:text="${item.unitPrice}"></td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheet.css"/>
+    <title>Main Page</title>
+</head>
+<body>
+
+    <main>
+        <h1>Space Transporter</h1>
+
+        <table>
+
+            <tr>
+                <th>Planet</th>
+                <th>Population</th>
+                <th>Spaceship location</th>
+                <th>People on ship</th>
+            </tr>
+
+            <tr th:if="${planets.empty}">
+                <td colspan="5">No Planets available</td>
+            </tr>
+
+            <tr th:block th:each="planet:${planets}">
+
+                <td th:text="${planet.name}"></td>
+
+                <td th:text="${planet.population}"></td>
+
+                <!--Spaceship current location / moving people-->
+
+                <td>
+                    <div th:if="${planet.name == spaceshipLocation.name}">
+                        <a th:href="@{|/toplanet/${planet.id}|}" th:text="'← to planet'"></a>
+                        <a th:href="@{|/toship/${planet.id}|}" th:text="'to ship →'"></a>
+                    </div>
+
+                    <!--Spaceship moving-->
+
+                    <div th:unless="${planet.name == spaceshipLocation.name}">
+                        <form th:action="@{|/movehere/${planet.id}|}" th:object="${spaceship}" method="post">
+                    <span th:field="*{planet}">
+                        <input type="submit" value="Move here">
+                    </span>
+                        </form>
+                    </div>
+
+                </td>
+
+                <td>
+                    <div th:if="${planet.name == spaceshipLocation.name}">
+                        <span th:text="${spaceship.utilization}"></span>
+                    </div>
+                    <div th:unless="${planet.name == spaceshipLocation.name}">
+                        <span>-</span>
+                    </div>
+                </td>
+
+            </tr>
+
+        </table>
+
+    </main>
+
+</body>
+</html>

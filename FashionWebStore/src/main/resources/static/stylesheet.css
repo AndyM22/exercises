@@ -1,0 +1,14 @@
+.header {
+    text-align: center;
+    font-weight: bold;
+}
+
+.page {
+    width: 700px;
+    height: 900px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+}
